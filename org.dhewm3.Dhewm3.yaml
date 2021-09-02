@@ -1,7 +1,7 @@
 app-id: org.dhewm3.Dhewm3
 runtime: org.freedesktop.Platform
 sdk: org.freedesktop.Sdk
-runtime-version: "20.08"
+runtime-version: "21.08"
 command: dhewm3.sh
 
 finish-args:
