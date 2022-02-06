@@ -5,9 +5,8 @@ runtime-version: "21.08"
 command: dhewm3.sh
 
 finish-args:
+- --socket=x11
 - --device=dri
-- --socket=wayland
-- --socket=fallback-x11
 - --share=ipc
 - --share=network
 - --socket=pulseaudio
