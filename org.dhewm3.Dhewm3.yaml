@@ -1,87 +1,184 @@
 app-id: org.dhewm3.Dhewm3
 runtime: org.freedesktop.Platform
 sdk: org.freedesktop.Sdk
-runtime-version: "21.08"
+runtime-version: '21.08'
 command: dhewm3.sh
 
 finish-args:
-- --socket=x11
-- --device=dri
-- --share=ipc
-- --share=network
-- --socket=pulseaudio
+  - --socket=x11
+  - --device=dri
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
 
 cleanup:
-- /include
-- /lib/*.a
-- /lib/*.la
-- /lib/pkgconfig
+  - /include
+  - /lib/*.a
+  - /lib/*.la
+  - /lib/pkgconfig
 
 modules:
 
 # Upstream request. Sadly no release tags so we'll just use a specific snapshot
 # of the master branch.
-- name: backtrace
-  buildsystem: autotools
-  sources:
-    - type: archive
-      url: https://github.com/ianlancetaylor/libbacktrace/archive/d0f5e95a87a4d3e0a1ed6c069b5dae7cbab3ed2a.zip
-      sha256: 9a5f38b2320fe99932584355765f534f3009f892d91c79439977fb2c30e49aa5
+  - name: backtrace
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://github.com/ianlancetaylor/libbacktrace/archive/4d2dd0b172f2c9192f83ba93425f868f2a13c553.zip
+        sha256: 90d224a18c0a0c0f1f22fe73b89ebebd4f1ee368e55d646718b7f3b294a52705
 
-- name: dhewm3
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-  - -DREPRODUCIBLE_BUILD=ON
-  sources:
-  - type: archive
-    url: https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.1.tar.gz
-    sha256: febaef022ff216435a2ff86f4e1526ac9bccbc401b03bed495a0a2f0b4edfb53
-    x-checker-data:
-      type: anitya
-      project-id: 9154
-      url-template: https://github.com/dhewm/dhewm3/archive/refs/tags/$version.tar.gz
-  - type: shell
-    commands:
+  - name: dhewm3
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DREPRODUCIBLE_BUILD=ON
+    sources:
+      - type: archive
+        url: https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.2.tar.gz
+        sha256: 0652d85bcc470b8535dee0fc6badd57a82a183984f7a02a3fa13937436166eb0
+        x-checker-data:
+          type: anitya
+          project-id: 9154
+          url-template: https://github.com/dhewm/dhewm3/archive/refs/tags/$version.tar.gz
+      - type: shell
+        commands:
       # Main code is one level down
-      - mv ./neo/* ./
+          - mv ./neo/* ./
       # supresses warnings for a non-used directory
-      - mkdir -p /app/share/dhewm3
+          - mkdir -p /app/share/dhewm3
 
-- name: launcher
-  buildsystem: simple
-  sources:
-  - type: file
-    path: org.dhewm3.Dhewm3.desktop
-  - type: file
-    path: org.dhewm3.Dhewm3.d3xp.desktop
-  - type: file
-    path: org.dhewm3.Dhewm3.metainfo.xml
-  - type: file
-    url: https://raw.githubusercontent.com/dhewm/dhewm.github.io/master/icon/icon.svg
-    sha256: da570168b9e9d20bbbb889d3a5a60e86c4fc0be1f11db0105955fbf3255e6816
-    dest-filename: org.dhewm3.Dhewm3.svg
+  # Mods must be compiled against the root project, which means that
+  # they must be Open Source and GPL licensed to be included.
+  - name: cdoom
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 cdoom.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        branch: cdoom
+        commit: 6a3fa7cb5faf483dd006a6b75b1febc5849b2dba
+
+  - name: dentonmod
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 dentonmod.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        branch: dentonmod
+        commit: 71629a8d6ad19ba521c38c32f4be5c9c2d2b1fb9
+
+  - name: fitz
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 fitz.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        branch: fitz
+        commit: 68f062ec385e178144e8d5789a2333436857dd00
+        
+  - name: hardcorps
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 hardcorps.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        branch: hardcorps
+        commit: fec5714d4e0a4b71e93461c5aa7a5d2f403c6cdf
+        
+  - name: libreocoop
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 librecoop.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/Stradex/librecoop/
+        tag: alpha_1.5
+        commit: 0daec5b6a7553cb4b06d65b717e2d9a411ff47ca
+        
+  - name: rivensin
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 rivensin.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        branch: rivensin
+        commit: e093ace3e44a2832234a97da5a2cfe769a76d5fd
+        
+  - name: lostmission
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 d3le.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        branch: d3le
+        commit: 2e1dc5ce3ecec50eaeec4d607d4457c3759909d8
+
+  - name: launcher
+    buildsystem: simple
+    sources:
+      - type: file
+        path: org.dhewm3.Dhewm3.desktop
+      - type: file
+        path: org.dhewm3.Dhewm3.d3xp.desktop
+      - type: file
+        path: org.dhewm3.Dhewm3.metainfo.xml
+      - type: file
+        url: https://raw.githubusercontent.com/dhewm/dhewm.github.io/master/icon/icon.svg
+        sha256: da570168b9e9d20bbbb889d3a5a60e86c4fc0be1f11db0105955fbf3255e6816
+        dest-filename: org.dhewm3.Dhewm3.svg
     # png versions based on the project SVG version
-  - type: file
-    path: org.dhewm3.Dhewm3.128.png
-  - type: file
-    path: org.dhewm3.Dhewm3.256.png
-  - type: script
-    commands:
-    - ls ~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/base || zenity --error --text "Game data /base/ must be added to:\n~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/" --ok-label "Close" --width=400
-    - dhewm3 "$@"
-    dest-filename: dhewm3.sh
-  - type: script
-    commands:
-    - ls ~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/d3xp || zenity --error --text "Game data /d3xp/ must be added to:\n~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/" --ok-label "Close" --width=400
-    - dhewm3 +set fs_game d3xp "$@"
-    dest-filename: dhewm3_d3xp.sh
-  build-commands:
-  - install -Dm 644 org.dhewm3.Dhewm3.desktop -t /app/share/applications
-  - install -Dm 644 org.dhewm3.Dhewm3.d3xp.desktop -t /app/share/applications
-  - install -Dm 644 org.dhewm3.Dhewm3.128.png -t /app/share/icons/hicolor/128x128/apps/
-  - install -Dm 644 org.dhewm3.Dhewm3.256.png -t /app/share/icons/hicolor/256x256/apps/
-  - install -Dm 644 org.dhewm3.Dhewm3.svg -t /app/share/icons/hicolor/scalable/apps/
-  - install -Dm 644 org.dhewm3.Dhewm3.metainfo.xml -t /app/share/metainfo
-  - install -Dm 744 dhewm3.sh -t /app/bin/
-  - install -Dm 744 dhewm3_d3xp.sh -t /app/bin/
+      - type: file
+        path: org.dhewm3.Dhewm3.128.png
+      - type: file
+        path: org.dhewm3.Dhewm3.256.png
+      - type: script
+        commands:
+          - ls ~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/base || zenity --error --text
+            "Game data /base/ must be added to:\n~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/"
+            --ok-label "Close" --width=400
+          - dhewm3 "$@"
+        dest-filename: dhewm3.sh
+      - type: script
+        commands:
+          - ls ~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/d3xp || zenity --error --text
+            "Game data /d3xp/ must be added to:\n~/.var/app/org.dhewm3.Dhewm3/data/dhewm3/"
+            --ok-label "Close" --width=400
+          - dhewm3 +set fs_game d3xp "$@"
+        dest-filename: dhewm3_d3xp.sh
+    build-commands:
+      - install -Dm 644 org.dhewm3.Dhewm3.desktop -t /app/share/applications
+      - install -Dm 644 org.dhewm3.Dhewm3.d3xp.desktop -t /app/share/applications
+      - install -Dm 644 org.dhewm3.Dhewm3.128.png -t /app/share/icons/hicolor/128x128/apps/
+      - install -Dm 644 org.dhewm3.Dhewm3.256.png -t /app/share/icons/hicolor/256x256/apps/
+      - install -Dm 644 org.dhewm3.Dhewm3.svg -t /app/share/icons/hicolor/scalable/apps/
+      - install -Dm 644 org.dhewm3.Dhewm3.metainfo.xml -t /app/share/metainfo
+      - install -Dm 744 dhewm3.sh -t /app/bin/
+      - install -Dm 744 dhewm3_d3xp.sh -t /app/bin/
