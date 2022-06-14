@@ -5,7 +5,8 @@ runtime-version: '21.08'
 command: dhewm3.sh
 
 finish-args:
-  - --socket=x11
+  - --socket=wayland
+  - --socket=fallback-x11
   - --device=dri
   - --share=ipc
   - --share=network
@@ -19,8 +20,19 @@ cleanup:
 
 modules:
 
-# Upstream request. Sadly no release tags so we'll just use a specific snapshot
-# of the master branch.
+  # Bundled for Wayland support. 21.08 only has SDL 2.0.16 which is good enough for Dhewm 3
+  - name: SDL2
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    sources:
+    - type: archive
+      url: https://github.com/libsdl-org/SDL/archive/refs/tags/release-2.0.22.tar.gz
+      sha256: 826e83c7a602b2025647e93c6585908379179f68d479dfc1d9b03d2b9570c8d9
+
+  # Upstream request. Sadly no release tags so we'll just use a specific snapshot
+  # of the master branch.
   - name: backtrace
     buildsystem: autotools
     sources:
