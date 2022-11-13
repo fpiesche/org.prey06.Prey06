@@ -89,7 +89,7 @@ modules:
         url: https://github.com/dhewm/dhewm3-sdk
         branch: fitz
         commit: 68f062ec385e178144e8d5789a2333436857dd00
-        
+
   - name: hardcorps
     buildsystem: cmake-ninja
     no-make-install: true
@@ -102,7 +102,7 @@ modules:
         url: https://github.com/dhewm/dhewm3-sdk
         branch: hardcorps
         commit: fec5714d4e0a4b71e93461c5aa7a5d2f403c6cdf
-        
+
   - name: libreocoop
     buildsystem: cmake-ninja
     no-make-install: true
@@ -115,7 +115,7 @@ modules:
         url: https://github.com/Stradex/librecoop/
         tag: alpha_1.5
         commit: 0daec5b6a7553cb4b06d65b717e2d9a411ff47ca
-        
+
   - name: rivensin
     buildsystem: cmake-ninja
     no-make-install: true
@@ -128,7 +128,7 @@ modules:
         url: https://github.com/dhewm/dhewm3-sdk
         branch: rivensin
         commit: e093ace3e44a2832234a97da5a2cfe769a76d5fd
-        
+
   - name: lostmission
     buildsystem: cmake-ninja
     no-make-install: true
@@ -140,7 +140,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: d3le
-        commit: 2e1dc5ce3ecec50eaeec4d607d4457c3759909d8
+        commit: 62daa91c07325024ca903cce9344f408107fa252
 
   - name: launcher
     buildsystem: simple
