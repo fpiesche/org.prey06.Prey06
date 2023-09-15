@@ -1,7 +1,7 @@
 app-id: org.dhewm3.Dhewm3
 runtime: org.freedesktop.Platform
 sdk: org.freedesktop.Sdk
-runtime-version: '22.08'
+runtime-version: '23.08'
 command: dhewm3.sh
 
 finish-args:
@@ -26,8 +26,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://github.com/ianlancetaylor/libbacktrace/archive/4d2dd0b172f2c9192f83ba93425f868f2a13c553.zip
-        sha256: 90d224a18c0a0c0f1f22fe73b89ebebd4f1ee368e55d646718b7f3b294a52705
+        url: https://github.com/ianlancetaylor/libbacktrace/archive/9ae4f4ae4481b1e69d38ed810980d33103544613.zip
+        sha256: 7b8fed02dd67bf083f06c6c3a6b30d86b0467a996fd94670c18109a723ab76b7
 
   - name: dhewm3
     buildsystem: cmake-ninja
