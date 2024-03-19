@@ -26,8 +26,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://github.com/ianlancetaylor/libbacktrace/archive/9ae4f4ae4481b1e69d38ed810980d33103544613.zip
-        sha256: 7b8fed02dd67bf083f06c6c3a6b30d86b0467a996fd94670c18109a723ab76b7
+        url: https://github.com/ianlancetaylor/libbacktrace/archive/7ead8c1ea2f4aeafe9c5b9ef8a9461a9ba781aa8.zip
+        sha256: 3b07ffe9a6302ccfdf5771ab8631814303f5bc15d19a2f5a1907c64a391ec29f
 
   - name: dhewm3
     buildsystem: cmake-ninja
