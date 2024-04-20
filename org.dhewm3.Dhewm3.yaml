@@ -62,7 +62,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: cdoom
-        commit: 7c1091d271590489df8a576efa18126a2efc7206
+        commit: c6d2afac06b3b0b16e2efc7e23e27c60822eefa9
 
   - name: dentonmod
     buildsystem: cmake-ninja
@@ -75,7 +75,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: dentonmod
-        commit: f18f7a0b453a0413f4dc6f78b1f44c9d54bbaff3
+        commit: 72d2c417645d47a382b061d2a6db4a46e060145d
 
   - name: fitz
     buildsystem: cmake-ninja
@@ -88,7 +88,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: fitz
-        commit: 339c286cbe84682d1b3674bfb1a0b1b8d1ffe5a3
+        commit: 41cfd224f9c3d4ba9b3882aae8c349efa4ae7148
 
   - name: hardcorps
     buildsystem: cmake-ninja
@@ -101,7 +101,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: hardcorps
-        commit: f385c20aec33408df79198ffae7f63639151f7c1
+        commit: d8d797c2481169743a8907c67f161b059f072a26
 
   - name: libreocoop
     buildsystem: cmake-ninja
@@ -127,7 +127,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: rivensin
-        commit: d7e59042218a71367b127aec5255edc79bf45cce
+        commit: 4416ef0f7ebb4f9dd0e68442404621204ab5fdde
 
   - name: lostmission
     buildsystem: cmake-ninja
@@ -140,7 +140,7 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         branch: d3le
-        commit: 6bf54c79b6d659671d990016afd7cf1a63b04f0e
+        commit: 0e6e3519b21eae4690810180210cc90b0174dc3d
 
   - name: launcher
     buildsystem: simple
