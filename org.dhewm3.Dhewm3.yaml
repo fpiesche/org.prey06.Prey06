@@ -138,6 +138,44 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         commit: 0e6e3519b21eae4690810180210cc90b0174dc3d
+        
+  - name: bloodmod
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 bloodmod.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        commit: 7a432428a18f8843dae049cf5c4e84f293b75aac
+         
+  - name: perfected
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 perfected.so /app/lib/dhewm3
+      - install -Dm 755 perfected_roe.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        commit: 47d2a8d27fd3dc2e94343ec428f238b80874f50e
+   
+  - name: sikkmod
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 sikkmod.so /app/lib/dhewm3
+      - install -Dm 755 sikkmodd3xp.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        commit: 955760cdfbc3fe22d02f086c4ca102354e5baf31
 
   - name: launcher
     buildsystem: simple
