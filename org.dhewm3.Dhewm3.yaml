@@ -36,8 +36,8 @@ modules:
       - -DREPRODUCIBLE_BUILD=ON
     sources:
       - type: archive
-        url: https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.4_RC1.tar.gz
-        sha256: 45f9582b23db96a94c429dcebb450b057f39cbf244a7f718ac166f59ffee7ede
+        url: https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.4_RC2.tar.gz
+        sha256: 5ffa5559068d352230339702f861ebf8fdafd92eb96de5a4363170d943cbe45d
         x-checker-data:
           type: anitya
           project-id: 9154
@@ -162,7 +162,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
-        commit: 47d2a8d27fd3dc2e94343ec428f238b80874f50e
+        commit: 20a7240238f9dcd4864e841343550b18605ac34a
    
   - name: sikkmod
     buildsystem: cmake-ninja
@@ -175,7 +175,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
-        commit: 955760cdfbc3fe22d02f086c4ca102354e5baf31
+        commit: 03aae2f5b74a18ed5fdbfe9c345a4d50203c7518
 
   - name: launcher
     buildsystem: simple
