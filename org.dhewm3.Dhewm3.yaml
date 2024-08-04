@@ -14,8 +14,8 @@ finish-args:
 
 cleanup:
   - /include
-  - /lib/*.a
-  - /lib/*.la
+  - "*.a"
+  - "*.la"
   - /lib/pkgconfig
 
 modules:
@@ -26,8 +26,8 @@ modules:
     buildsystem: autotools
     sources:
       - type: archive
-        url: https://github.com/ianlancetaylor/libbacktrace/archive/7ead8c1ea2f4aeafe9c5b9ef8a9461a9ba781aa8.zip
-        sha256: 3b07ffe9a6302ccfdf5771ab8631814303f5bc15d19a2f5a1907c64a391ec29f
+        url: https://github.com/ianlancetaylor/libbacktrace/archive/7e2b7da3d6568d2e4e78658f22e701746a48d7e1.zip
+        sha256: 00e4e08099d7adb57e37dfb165c8256e368cccf8dc70706e90e25327603bec7e
 
   - name: dhewm3
     buildsystem: cmake-ninja
@@ -36,8 +36,8 @@ modules:
       - -DREPRODUCIBLE_BUILD=ON
     sources:
       - type: archive
-        url: https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.3.tar.gz
-        sha256: aedb72ddbab50a9ac2f279cce0675d3b707eeb2424651f389c27683541ccf44c
+        url: https://github.com/dhewm/dhewm3/archive/refs/tags/1.5.4.tar.gz
+        sha256: d460d55f7912e220f4d209b66f47e31aad6c2a833af6236a3679096a51f21858
         x-checker-data:
           type: anitya
           project-id: 9154
@@ -138,6 +138,44 @@ modules:
       - type: git
         url: https://github.com/dhewm/dhewm3-sdk
         commit: 0e6e3519b21eae4690810180210cc90b0174dc3d
+        
+  - name: bloodmod
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 bloodmod.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        commit: 7a432428a18f8843dae049cf5c4e84f293b75aac
+         
+  - name: perfected
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 perfected.so /app/lib/dhewm3
+      - install -Dm 755 perfected_roe.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        commit: 20a7240238f9dcd4864e841343550b18605ac34a
+   
+  - name: sikkmod
+    buildsystem: cmake-ninja
+    no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+    post-install:
+      - install -Dm 755 sikkmod.so /app/lib/dhewm3
+      - install -Dm 755 sikkmodd3xp.so /app/lib/dhewm3
+    sources:
+      - type: git
+        url: https://github.com/dhewm/dhewm3-sdk
+        commit: 03aae2f5b74a18ed5fdbfe9c345a4d50203c7518
 
   - name: launcher
     buildsystem: simple
