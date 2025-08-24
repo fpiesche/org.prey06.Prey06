@@ -1,0 +1,57 @@
+app-id: io.github.friskthefallenhuman.prey2006
+runtime: org.freedesktop.Platform
+sdk: org.freedesktop.Sdk
+runtime-version: '24.08'
+command: io.github.friskthefallenhuman.prey2006.sh
+
+finish-args:
+  # Wayland
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --share=ipc
+  # 3D hardware
+  - --device=dri
+  # Multiplayer
+  - --share=network
+  # Audio
+  - --socket=pulseaudio
+  # Gamepad access
+  - --device=all
+
+cleanup:
+  - /include
+  - "*.a"
+  - "*.la"
+  - /lib/pkgconfig
+
+modules:
+  - name: backtrace
+    buildsystem: autotools
+    sources:
+      - type: archive
+        url: https://github.com/ianlancetaylor/libbacktrace/archive/793921876c981ce49759114d7bb89bb89b2d3a2d.zip
+        sha256: 5c7fa8a3319cbc352f991a443997ac65913215354cb10f4b59f4b349e68373d7
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/ianlancetaylor/libbacktrace/branches/master
+          version-query: .commit.sha
+          url-template: https://github.com/ianlancetaylor/libbacktrace/archive/$version.zip
+
+  - name: prey06
+    buildsystem: cmake-ninja
+    subdir: neo
+    builddir: true
+    sources:
+      - type: archive
+        url: https://github.com/FriskTheFallenHuman/Prey2006/archive/e763ff0ad1dc3967413eca09860989ffc5d74567.zip
+        sha256: e6744897ae3e2dac058aa9e540cf79bfbc592b5db82133f9dcfd2859c3791a00
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/FriskTheFallenHuman/Prey2006/releases/latest
+          version-query: .tag_name | sub("^v"; "")
+          url-query: .zipball_url
+      - type: file
+        path: io.github.friskthefallenhuman.prey2006.sh
+    post-install:
+      - install -Dm 755 ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.sh -t /app/bin/
+      - mv /app/share/games/prey06/base/base.so /app/bin/ && rm -rf /app/share/games

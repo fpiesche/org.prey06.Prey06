@@ -1,3 +1,5 @@
-build-dir/
-.flatpak-builder/
-testing-repo/
+build
+.flatpak-builder
+.flatpak
+repo
+.vscode
